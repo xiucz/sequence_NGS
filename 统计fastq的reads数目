@@ -1,0 +1,7 @@
+#!/bin/bash
+fastqs=`ls *.fastq.*`
+for i in $fastqs
+        do
+reads=`echo  "scale=0;\`less $i | wc -l\`/4"|bc -l`
+echo $i $reads
+        done
