@@ -12,4 +12,5 @@ xiucz@local:~/.ssh$ cd metagenome1/
 xiucz@local:~/.ssh/metagenome1$ git mv Rscripts/LEfSe/ ./
 xiucz@local:~/.ssh/metagenome1$ git status
 xiucz@local:~/.ssh/metagenome1$ git commit -m "mv"
+xiucz@local:~/.ssh/metagenome1$ git push origin master
 ```
