@@ -38,7 +38,7 @@ cp -r * ~/miniconda2/envs/biostar/
 ## BioContainer
 ## Reference_Info
 http://mp.weixin.qq.com/s/nK1Kkf9lfZStoX25Y7SzHQ  
-https://zhuanlan.zhihu.com/p/25085567 
+https://zhuanlan.zhihu.com/p/25085567  
 http://www.biotrainee.com/thread-1901-1-1.html  
-什么是虚拟环境：http://blog.csdn.net/pipisorry/article/details/39998317 
+什么是虚拟环境：http://blog.csdn.net/pipisorry/article/details/39998317  
 https://mp.weixin.qq.com/s/1HOQ8J2vs-lEwdVAxeNiyQ
