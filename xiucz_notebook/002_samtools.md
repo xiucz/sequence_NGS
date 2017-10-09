@@ -54,6 +54,12 @@ samtools view -T genome.fasta -h scaffold1.sam > scaffold1.h.sam
 7)查看bwa比对结果中比对上基因组的unique mapped reads
 samtools view xx.bam |grep "XT：A：U" | wc -l
 ```
+
+```bash
+想知道有多少paired end reads有mate并且都有map时，可以使用-f 1 -F 12来过滤
+samtools view -c -f 1 -F 12 test.bam
+其中-f 1指定只包含那些paired end reads，-F 12是不包含那些unmapped(flag 0×0004)以及mate是unmapped(flag 0×0008)。0×0004 + 0×0008 = 12.
+```
 测序数据的双端的，那么sam文件的第3列是reads1的比对情况，第6列是reads2的比对情况。所以未比对成功的测序数据可以分成3类，仅reads1，仅reads2，和两端reads都没有比对成功。
 也可以用下面的代码分步提取这3类未比对成功的reads:
 ```
@@ -91,6 +97,26 @@ samtools flagstat example.bam
 93185 + 0 singletons (0.65% : N/A)  #单独一条匹配到参考序列上的reads数，和上一个相加，则是总的匹配上的reads数。
 0 + 0 with mate mapped to a different chr # #paired reads中两条分别比对到两条不同的参考序列的reads数
 0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+```
+
+```
+#cat junti.bowtie.err
+5421701 reads; of these:
+  5421701 (100.00%) were paired; of these:
+    705166 (13.01%) aligned concordantly 0 times
+    4524924 (83.46%) aligned concordantly exactly 1 time
+    191611 (3.53%) aligned concordantly >1 times
+    ----
+    705166 pairs aligned concordantly 0 times; of these:
+      226261 (32.09%) aligned discordantly 1 time
+    ----
+    478905 pairs aligned 0 times concordantly or discordantly; of these:
+      957810 mates make up the pairs; of these:
+        644240 (67.26%) aligned 0 times
+        8949 (0.93%) aligned exactly 1 time
+        304621 (31.80%) aligned >1 times
+94.06% overall alignment rate
 
 ```
 
