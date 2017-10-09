@@ -10,11 +10,14 @@
 #### 对fasta文件建立索引
 ```
 bashsamtools faidx ref_genome.fasta
+
+提取子序列
+samtools faidx ref_genome.fasta scffold_10 > scaffold_10.fasta
 ```
 #### sam文件<=>bam文件
 ```bashsamtools view -h sample.bam > sample.sam samtools view -bS sample.sam > sample.bam
 ```
-#### 提取
+#### view
 ```
 0x1 PAIRED paired-end (or multiple-segment) sequencing technology 
 0x2 PROPER_PAIR each segment properly aligned according to the aligner 
@@ -30,25 +33,25 @@ bashsamtools faidx ref_genome.fasta
 ```
 
 ```bash
-a.提取没有比对到参考序列上的比对结果
+1)提取没有比对到参考序列上的比对结果
 samtools view -bf 4 abc.bam > abc.f.bam
 
-b.提取比对到参考序列上的比对结果
+2)提取比对到参考序列上的比对结果
 samtools view -bF 4 abc.bam > abc.F.bam 
 
-c.提取paired reads中两条reads都比对到参考序列上的比对结果，只需要把两个4+8的值12作为过滤参数即可
+3)提取paired reads中两条reads都比对到参考序列上的比对结果，只需要把两个4+8的值12作为过滤参数即可
 samtools view -bF 12 abc.bam > abc.F12.bam
 
-d.提取bam文件中比对到caffold1上的比对结果，并保存到sam文件格式
+4)提取bam文件中比对到caffold1上的比对结果，并保存到sam文件格式
 samtools view abc.bam scaffold1 > scaffold1.sam
 
-e.提取scaffold1上能比对到30k到100k区域的比对结果
+5)提取scaffold1上能比对到30k到100k区域的比对结果
 samtools view abc.bam scaffold1:30000-100000 $gt; scaffold1_30k-100k.sam
 
-f.根据fasta文件，将 header 加入到 sam 或 bam 文件中
+6)根据fasta文件，将 header 加入到 sam 或 bam 文件中
 samtools view -T genome.fasta -h scaffold1.sam > scaffold1.h.sam
 
-g.查看bwa比对结果中比对上基因组的unique mapped reads
+7)查看bwa比对结果中比对上基因组的unique mapped reads
 samtools view xx.bam |grep "XT：A：U" | wc -l
 ```
 测序数据的双端的，那么sam文件的第3列是reads1的比对情况，第6列是reads2的比对情况。所以未比对成功的测序数据可以分成3类，仅reads1，仅reads2，和两端reads都没有比对成功。
@@ -64,12 +67,33 @@ bamToFastq -bam unmapped.bam -fq1 unmapped_reads1.fastq -fq2 unmapped_reads2.fas
 samtools view sample_sorted.bam chr1:1234-123456samtools flagstat sample_sorted.bam
 ```
 
-#### 排序
+#### sort
 ```bash
 samtools sort sample.bam sort_default
 samtools sort -n sample.bam sort_left
 ```
 Sort alignments by leftmost coordinates, or by read name when -n is used.  默认按照染色体位置进行排序，而-n参数则是根据read名进行排序。
+
+#### flagstat
+```
+#Version: 1.3
+samtools flagstat example.bam
+14367369 + 0 in total (QC-passed reads + QC-failed reads)  #总共的reads数
+26939 + 0 secondary
+0 + 0 supplementary
+0 + 0 duplicates
+13229644 + 0 mapped (92.08% : N/A)  #总体上reads的匹配率
+14340430 + 0 paired in sequencing  #有多少reads是属于paired reads
+7170215 + 0 read1
+7170215 + 0 read2
+13005936 + 0 properly paired (90.69% : N/A) #完美匹配的reads数：比对到同一条参考序列，并且两条reads之间的距离符合设置的阈值
+13109520 + 0 with itself and mate mapped  #paired reads中两条都比对到参考序列上的reads数
+93185 + 0 singletons (0.65% : N/A)  #单独一条匹配到参考序列上的reads数，和上一个相加，则是总的匹配上的reads数。
+0 + 0 with mate mapped to a different chr # #paired reads中两条分别比对到两条不同的参考序列的reads数
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+```
+
 # QC软件
 * Picard https://broadinstitute.github.io/picard/ 
 * RSeQC http://rseqc.sourceforge.net/ 
