@@ -118,6 +118,16 @@ samtools flagstat example.bam
         304621 (31.80%) aligned >1 times
 94.06% overall alignment rate
 
+
+A pair that aligns with the expected relative mate orientation and with the
+expected range of distances between mates is said to align "concordantly". If
+both mates have unique alignments, but the alignments do not match paired-end
+expectations (i.e. the mates aren't in the expcted relative orientation, or
+aren't within the expected disatance range, or both), the pair is said to align
+"discordantly".
+
+total reads: 5421701*2
+mapping ratio: 1 - 644240*1/5421701*2 
 ```
 
 # QC软件
