@@ -130,6 +130,12 @@ total reads: 5421701*2
 mapping ratio: 1 - 644240*1/5421701*2 
 ```
 
+```
+samtools view -@ 8 -bF 1024 过滤PCR扩增的接头序列
+samtools view -bF 256    计算mappingratio的时候，因为是因为mem算法比对，需要先过滤打断比对的reads
+samtools view -@ 8 -f 1 -F 12 提取paired mapped reads
+```
+
 # QC软件
 * Picard https://broadinstitute.github.io/picard/ 
 * RSeQC http://rseqc.sourceforge.net/ 
