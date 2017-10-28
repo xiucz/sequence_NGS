@@ -1,3 +1,5 @@
+
+
 ### sam文件格式sam格式的定义：https://samtools.github.io/hts-specs/SAMv1.pdf
  1. 第3和第7列，可以用来判断某条reads是否比对成功到了基因组的染色体，左右两条reads是否比对到同一条染色体。
  而第1，10，11列可以提取出来还原成我们的测序数据fastq格式的。  
@@ -9,13 +11,14 @@
 # samtools
 #### 对fasta文件建立索引
 ```
-bashsamtools faidx ref_genome.fasta
+samtools faidx ref_genome.fasta
 
 提取子序列
 samtools faidx ref_genome.fasta scffold_10 > scaffold_10.fasta
 ```
 #### sam文件<=>bam文件
-```bashsamtools view -h sample.bam > sample.sam samtools view -bS sample.sam > sample.bam
+```bash
+samtools view -h sample.bam > sample.sam samtools view -bS sample.sam > sample.bam
 ```
 #### view
 ```
