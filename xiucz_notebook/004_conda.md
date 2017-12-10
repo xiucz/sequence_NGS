@@ -14,7 +14,9 @@ conda config --add channels bioconda
 ```
 ## 添加镜像源
 ```
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/conda config --set show_channel_urls yes
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+
+conda config --set show_channel_urls yes
 
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
 ```
@@ -28,6 +30,10 @@ conda create -n aligners bwa bowtie hisat star -y
 ```
 ## 常用命令
 ```
+source activate env_name
+
+source deactivate env_name
+
 conda env list #查看所有创建的env, 其中处于active状态的env前会有一个*
 
 conda create --clone py35 --name py35-2 #精确的copy一个env，并取一个新名称
